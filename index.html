@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calibrador Aviator</title>
+
+  <title>Calibrador Aviator V2</title>
 
   <style>
     * {
@@ -13,149 +14,623 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #0f172a;
+      background: #0b1120;
       color: white;
     }
 
     .app {
-      max-width: 500px;
+      max-width: 520px;
       margin: auto;
-      padding: 20px;
+      padding: 18px;
     }
 
-    .logo {
+    .header {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 18px;
     }
 
-    .logo h1 {
+    .header h1 {
       margin: 0;
-      font-size: 28px;
+      font-size: 25px;
     }
 
-    .logo p {
+    .header p {
       color: #94a3b8;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .card {
-      background: #1e293b;
+      background: #172033;
       border-radius: 16px;
-      padding: 20px;
+      padding: 18px;
+      margin-bottom: 15px;
+      border: 1px solid #26344d;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
       margin-bottom: 15px;
     }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: #cbd5e1;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
     }
 
     input {
       width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      margin-bottom: 15px;
+      padding: 13px;
+      border: 1px solid #334155;
+      border-radius: 9px;
+      background: #0f172a;
+      color: white;
+      font-size: 16px;
+      outline: none;
     }
 
     button {
       width: 100%;
-      padding: 15px;
+      padding: 14px;
+      margin-top: 12px;
       border: none;
       border-radius: 10px;
-      background: #22c55e;
-      color: white;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    button:active {
-      transform: scale(0.98);
+    .primary {
+      background: #22c55e;
+      color: white;
     }
 
-    .status {
-      text-align: center;
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 10px;
+    .secondary {
       background: #334155;
+      color: white;
     }
 
-    .resultado {
-      font-size: 22px;
+    .danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .warning {
+      background: #92400e;
+      padding: 13px;
+      border-radius: 10px;
+      margin-top: 12px;
+      text-align: center;
       font-weight: bold;
+    }
+
+    .signal {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .signal-status {
+      font-size: 23px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .green {
+      color: #22c55e;
+    }
+
+    .yellow {
+      color: #facc15;
+    }
+
+    .red {
+      color: #ef4444;
+    }
+
+    .history {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
       margin-top: 10px;
+    }
+
+    .result {
+      background: #334155;
+      padding: 8px 10px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    .high {
+      background: #7c2d12;
+      color: #fed7aa;
+    }
+
+    .counter {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .small {
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 7px;
+    }
+
+    .success {
+      color: #22c55e;
+      font-weight: bold;
+    }
+
+    .loss {
+      color: #ef4444;
+      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <div class="logo">
-      <h1>CALIBRADOR AVIATOR</h1>
-      <p>Análise e gestão de sessão</p>
+  <div class="header">
+    <h1>CALIBRADOR AVIATOR</h1>
+    <p>Versão 2 — análise e gestão de sessão</p>
+  </div>
+
+
+  <!-- INÍCIO -->
+  <div class="card" id="inicio">
+
+    <div class="title">
+      1. Introduza os 6 últimos resultados
     </div>
 
-    <div class="card">
+    <div class="grid">
 
-      <label>Introduza o último resultado</label>
+      <input id="r1" type="number" step="0.01" placeholder="Resultado 1">
+      <input id="r2" type="number" step="0.01" placeholder="Resultado 2">
+      <input id="r3" type="number" step="0.01" placeholder="Resultado 3">
+      <input id="r4" type="number" step="0.01" placeholder="Resultado 4">
+      <input id="r5" type="number" step="0.01" placeholder="Resultado 5">
+      <input id="r6" type="number" step="0.01" placeholder="Resultado 6">
 
-      <input
-        type="number"
-        id="resultado"
-        step="0.01"
-        min="1"
-        placeholder="Ex.: 12.46"
-      >
+    </div>
 
-      <button onclick="analisar()">
-        ANALISAR
-      </button>
+    <button class="primary" onclick="iniciarSessao()">
+      INICIAR SESSÃO
+    </button>
 
-      <div class="status">
-        <div>STATUS</div>
-        <div class="resultado" id="status">
-          AGUARDANDO RESULTADO
-        </div>
+  </div>
+
+
+  <!-- SESSÃO -->
+  <div class="card hidden" id="sessao">
+
+    <div class="counter">
+      PALPITES: <span id="contador">0</span>/5
+    </div>
+
+    <div class="title">
+      Novo resultado
+    </div>
+
+    <input
+      id="novoResultado"
+      type="number"
+      step="0.01"
+      placeholder="Ex.: 12.46"
+    >
+
+    <button class="primary" onclick="adicionarResultado()">
+      ADICIONAR RESULTADO
+    </button>
+
+    <div class="history" id="historico"></div>
+
+  </div>
+
+
+  <!-- SINAL -->
+  <div class="card hidden" id="analise">
+
+    <div class="signal">
+
+      <div>STATUS</div>
+
+      <div
+        class="signal-status yellow"
+        id="status">
+        OBSERVAR
+      </div>
+
+      <div id="mensagem" class="small">
+        Aguardando novos dados.
       </div>
 
     </div>
 
   </div>
 
-  <script>
 
-    function analisar() {
+  <!-- HORÁRIO -->
+  <div class="card hidden" id="horarioCard">
+
+    <div class="title">
+      Resultado alto detectado
+    </div>
+
+    <p>
+      Introduza o horário exato dessa rodada.
+    </p>
+
+    <input
+      id="horario"
+      type="time"
+      step="1"
+    >
+
+    <button class="primary" onclick="calcularHorario()">
+      CALCULAR ACOMPANHAMENTO
+    </button>
+
+    <div id="horarioResultado" class="small"></div>
+
+  </div>
+
+
+  <!-- DECISÃO -->
+  <div class="card hidden" id="decisao">
+
+    <div class="title">
+      Registo da decisão
+    </div>
+
+    <button class="primary" onclick="entrei()">
+      ENTREI
+    </button>
+
+    <button class="secondary" onclick="naoEntrei()">
+      NÃO ENTREI
+    </button>
+
+  </div>
+
+
+  <!-- RESULTADO DA ENTRADA -->
+  <div class="card hidden" id="resultadoEntrada">
+
+    <div class="title">
+      Resultado da entrada
+    </div>
+
+    <input
+      id="resultadoEntradaValor"
+      type="number"
+      step="0.01"
+      placeholder="Introduza o resultado"
+    >
+
+    <button class="primary" onclick="registrarEntrada()">
+      REGISTRAR RESULTADO
+    </button>
+
+    <div id="resultadoMensagem"></div>
+
+  </div>
+
+
+  <div class="warning">
+    PROTEÇÃO: 2,00x<br>
+    NÃO AUMENTAR A APOSTA
+  </div>
+
+</div>
+
+
+<script>
+
+  let resultados = [];
+  let palpites = 0;
+  let aguardandoResultadoEntrada = false;
+
+
+  function iniciarSessao() {
+
+    resultados = [];
+
+    for (let i = 1; i <= 6; i++) {
 
       const valor = parseFloat(
-        document.getElementById("resultado").value
+        document.getElementById("r" + i).value
       );
 
-      const status = document.getElementById("status");
-
-      if (isNaN(valor)) {
-        status.innerText = "INTRODUZA UM RESULTADO";
+      if (isNaN(valor) || valor < 1) {
+        alert("Preencha os 6 resultados corretamente.");
         return;
       }
 
+      resultados.push(valor);
+    }
+
+    palpites = 0;
+
+    document.getElementById("contador").innerText = palpites;
+
+    document.getElementById("inicio")
+      .classList.add("hidden");
+
+    document.getElementById("sessao")
+      .classList.remove("hidden");
+
+    document.getElementById("analise")
+      .classList.remove("hidden");
+
+    atualizarHistorico();
+
+    atualizarStatus();
+  }
+
+
+  function adicionarResultado() {
+
+    if (palpites >= 5) {
+      encerrarSessao();
+      return;
+    }
+
+    const campo =
+      document.getElementById("novoResultado");
+
+    const valor = parseFloat(campo.value);
+
+    if (isNaN(valor) || valor < 1) {
+      alert("Introduza um resultado válido.");
+      return;
+    }
+
+    resultados.push(valor);
+
+    campo.value = "";
+
+    atualizarHistorico();
+
+    if (valor >= 10) {
+
+      document.getElementById("horarioCard")
+        .classList.remove("hidden");
+
+      document.getElementById("decisao")
+        .classList.remove("hidden");
+
+      document.getElementById("status").innerText =
+        "OBSERVAR";
+
+      document.getElementById("status").className =
+        "signal-status yellow";
+
+      document.getElementById("mensagem").innerText =
+        "Resultado ≥ 10x detectado. Registe o horário para acompanhamento.";
+
+    } else {
+
+      atualizarStatus();
+
+    }
+  }
+
+
+  function atualizarHistorico() {
+
+    const historico =
+      document.getElementById("historico");
+
+    historico.innerHTML = "";
+
+    resultados.slice(-20).forEach(valor => {
+
+      const elemento =
+        document.createElement("div");
+
+      elemento.className = "result";
+
       if (valor >= 10) {
-        status.innerText = "OBSERVAR";
-      } 
-      else if (valor >= 2) {
-        status.innerText = "NORMAL";
-      } 
-      else {
-        status.innerText = "AGUARDAR";
+        elemento.classList.add("high");
       }
+
+      elemento.innerText =
+        valor.toFixed(2) + "x";
+
+      historico.appendChild(elemento);
+
+    });
+  }
+
+
+  function atualizarStatus() {
+
+    const status =
+      document.getElementById("status");
+
+    status.innerText = "AGUARDAR";
+
+    status.className =
+      "signal-status yellow";
+
+    document.getElementById("mensagem").innerText =
+      "Aguardando novos resultados.";
+  }
+
+
+  function calcularHorario() {
+
+    const horario =
+      document.getElementById("horario").value;
+
+    if (!horario) {
+      alert("Introduza o horário.");
+      return;
+    }
+
+    let partes = horario.split(":");
+
+    let horas = parseInt(partes[0]);
+    let minutos = parseInt(partes[1]);
+    let segundos = parseInt(partes[2] || 0);
+
+    let data = new Date();
+
+    data.setHours(horas);
+    data.setMinutes(minutos);
+    data.setSeconds(segundos);
+
+    data.setMinutes(data.getMinutes() + 4);
+
+    let h = String(data.getHours()).padStart(2, "0");
+    let m = String(data.getMinutes()).padStart(2, "0");
+    let s = String(data.getSeconds()).padStart(2, "0");
+
+    document.getElementById("horarioResultado").innerHTML =
+      "<strong>Possível acompanhamento:</strong> " +
+      h + ":" + m + ":" + s;
+
+  }
+
+
+  function entrei() {
+
+    if (palpites >= 5) {
+      encerrarSessao();
+      return;
+    }
+
+    aguardandoResultadoEntrada = true;
+
+    document.getElementById("resultadoEntrada")
+      .classList.remove("hidden");
+
+    document.getElementById("resultadoMensagem").innerHTML =
+      "";
+
+  }
+
+
+  function naoEntrei() {
+
+    document.getElementById("resultadoEntrada")
+      .classList.add("hidden");
+
+    document.getElementById("decisao")
+      .classList.add("hidden");
+
+    document.getElementById("horarioCard")
+      .classList.add("hidden");
+
+    document.getElementById("status").innerText =
+      "AGUARDAR";
+
+    document.getElementById("status").className =
+      "signal-status yellow";
+
+    document.getElementById("mensagem").innerText =
+      "Sem entrada. Aguardando novos resultados.";
+  }
+
+
+  function registrarEntrada() {
+
+    if (!aguardandoResultadoEntrada) {
+      return;
+    }
+
+    const valor = parseFloat(
+      document.getElementById("resultadoEntradaValor").value
+    );
+
+    if (isNaN(valor) || valor < 1) {
+      alert("Introduza o resultado da entrada.");
+      return;
+    }
+
+    palpites++;
+
+    document.getElementById("contador").innerText =
+      palpites;
+
+    if (valor >= 2) {
+
+      document.getElementById("resultadoMensagem").innerHTML =
+        "<p class='success'>RESULTADO POSITIVO — " +
+        valor.toFixed(2) + "x</p>";
+
+    } else {
+
+      document.getElementById("resultadoMensagem").innerHTML =
+        "<p class='loss'>RESULTADO NEGATIVO — " +
+        valor.toFixed(2) + "x</p>";
 
     }
 
-  </script>
+    aguardandoResultadoEntrada = false;
+
+    document.getElementById("resultadoEntradaValor").value = "";
+
+    document.getElementById("decisao")
+      .classList.add("hidden");
+
+    document.getElementById("horarioCard")
+      .classList.add("hidden");
+
+    if (palpites >= 5) {
+
+      setTimeout(encerrarSessao, 1200);
+
+    } else {
+
+      document.getElementById("status").innerText =
+        "AGUARDAR";
+
+      document.getElementById("mensagem").innerText =
+        "Entrada registrada. Continue observando os próximos resultados.";
+
+    }
+
+  }
+
+
+  function encerrarSessao() {
+
+    document.getElementById("sessao")
+      .classList.add("hidden");
+
+    document.getElementById("analise")
+      .classList.add("hidden");
+
+    document.getElementById("horarioCard")
+      .classList.add("hidden");
+
+    document.getElementById("decisao")
+      .classList.add("hidden");
+
+    document.getElementById("resultadoEntrada")
+      .classList.add("hidden");
+
+    alert(
+      "Sessão encerrada. Foram utilizados 5 palpites."
+    );
+
+  }
+
+</script>
 
 </body>
   </html>
