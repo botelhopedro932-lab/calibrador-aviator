@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calibrador Aviator</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    .app {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .logo p {
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+
+    .card {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #22c55e;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #334155;
+    }
+
+    .resultado {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <div class="logo">
+      <h1>CALIBRADOR AVIATOR</h1>
+      <p>Análise e gestão de sessão</p>
+    </div>
+
+    <div class="card">
+
+      <label>Introduza o último resultado</label>
+
+      <input
+        type="number"
+        id="resultado"
+        step="0.01"
+        min="1"
+        placeholder="Ex.: 12.46"
+      >
+
+      <button onclick="analisar()">
+        ANALISAR
+      </button>
+
+      <div class="status">
+        <div>STATUS</div>
+        <div class="resultado" id="status">
+          AGUARDANDO RESULTADO
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    function analisar() {
+
+      const valor = parseFloat(
+        document.getElementById("resultado").value
+      );
+
+      const status = document.getElementById("status");
+
+      if (isNaN(valor)) {
+        status.innerText = "INTRODUZA UM RESULTADO";
+        return;
+      }
+
+      if (valor >= 10) {
+        status.innerText = "OBSERVAR";
+      } 
+      else if (valor >= 2) {
+        status.innerText = "NORMAL";
+      } 
+      else {
+        status.innerText = "AGUARDAR";
+      }
+
+    }
+
+  </script>
+
+</body>
+  </html>
